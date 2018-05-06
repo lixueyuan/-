@@ -1,13 +1,13 @@
 import random
 from PIL import Image,ImageDraw,ImageFont,ImageFilter
 
-#创建一个图像
+# Creat image
 img = Image.new("RGB",(150,50),(255,255,255))
 
-#1创建画笔
+#1 Creact brush
 draw = ImageDraw.Draw(img)
 
-#2绘制线条和点
+#2 Draw lines
 for i in range(random.randint(1,10)):
     draw.line(
         [
@@ -17,7 +17,7 @@ for i in range(random.randint(1,10)):
         fill=(0,0,0)
     )
 
-#3绘制点
+#3 Draw points
 for i in range(1000):
     draw.point(
         [
@@ -27,12 +27,35 @@ for i in range(1000):
         fill=(0,0,0)
     )
 
-#4绘制文字
+#4 Draw text
 font_list = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 c_chars = "".join(random.sample(font_list,5))
-font = ImageFont.truetype("simsun.ttc",28)
-draw.text((5,5),c_chars,font=font,fill="red")
+font = ImageFont.truetype("simsun.ttc",38)
+draw.text((5,5),c_chars,font=font,fill="black")
+'''
+First param:Represents the position of the text
+Second param:Represents contents of the text
+Third param: Is font
+Forth param:Font color
+'''
 
-#5定义扭曲
-#6使用滤镜
+#5 Custom param of the warp
+params = [
+    1 - float(random.randint(1,2))/100,
+    0,
+    0,
+    0,
+    1 - float(random.randint(1,2))/100,
+    float(random.randint(1,2))/500,
+    0.001,
+    float(random.randint(1,1))/500
+]
+img = img.transform((150,50),Image.PERSPECTIVE,params)
+'''
+first: arround of the warp
+second: style of the warp
+third: params of the  warp
+'''
+#6 Filter
+ima = img.filter(ImageFilter.EDGE_ENHANCE_MORE)
 img.show()
