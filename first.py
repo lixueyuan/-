@@ -1,5 +1,6 @@
 import random
-from PIL import Image,ImageDraw,ImageFont,ImageFilter
+from PIL import Image,ImageDraw,ImageFont,ImageFilter,ImageGrab
+import urllib
 
 # Creat image
 img = Image.new("RGB",(150,50),(255,255,255))
@@ -58,4 +59,6 @@ third: params of the  warp
 '''
 #6 Filter
 ima = img.filter(ImageFilter.EDGE_ENHANCE_MORE)
+
 img.show()
+img.save('123.jpg')
